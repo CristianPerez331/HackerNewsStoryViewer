@@ -58,7 +58,9 @@ namespace RestApi.BusinessLayers
 
             // fire and forget for the rest of the data so it will be ready later
             // but we don't have to wait to return the data for this call
+            #pragma warning disable 4014
             UpdateCacheWithLatestStoryData(latestStoryIds).ConfigureAwait(false);
+            #pragma warning restore 4014
 
             return hackerNewsData;
         }

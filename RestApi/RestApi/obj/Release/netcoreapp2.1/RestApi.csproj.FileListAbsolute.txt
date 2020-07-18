@@ -1,0 +1,15 @@
+C:\app\RestApi.deps.json
+C:\app\RestApi.runtimeconfig.json
+C:\app\RestApi.runtimeconfig.dev.json
+C:\app\RestApi.dll
+C:\app\RestApi.pdb
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\RestApi.csprojAssemblyReference.cache
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\RestApi.csproj.CoreCompileInputs.cache
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\RestApi.RazorAssemblyInfo.cache
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\RestApi.RazorAssemblyInfo.cs
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\RestApi.AssemblyInfoInputs.cache
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\RestApi.AssemblyInfo.cs
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\RestApi.RazorTargetAssemblyInfo.cache
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\RestApi.dll
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApi\obj\Release\netcoreapp2.1\RestApi.pdb

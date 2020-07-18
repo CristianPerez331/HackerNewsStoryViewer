@@ -22,10 +22,10 @@
 </div>
 </div>
 
+<h2 *ngIf="loading" id="loading-text">
+    Loading ...
+</h2>
 <ng-container *ngIf="newsStories?.data !== null && newsStories.data.length >  0">
-    <h2 *ngIf="loading" id="loading-text">
-        Loading ...
-    </h2>
     <div *ngIf="!loading">
         <div class="story-container" *ngFor="let newsStory of newsStories.data">
             <h2 class="story-title">
