@@ -13,5 +13,6 @@ dotnet run
 Navigate to /FrontEnd from CMD and run the following commands:
 ```
 npm install
+npm install -g @angular/cli
 ng serve
 ```
