@@ -1,0 +1,44 @@
+<div>
+<h1 id="page-title">Hacker News Stories</h1>
+
+<div id="search-container">
+    <span id="search-text">Search:</span>
+    <input id="search-field" [(ngModel)]="searchQuery" (keyup)="searchLatestNews()">
+</div>
+
+<div id="pagebutton-container">
+    <button class="pagebutton" *ngFor="let pageId of getPageButtonLabels()" [class.pagebutton-selected]="pageId === page" (click)="setPageAndUpdateNews(pageId)" >{{pageId + 1}}</button>
+</div>
+
+<div id="pagesize-dropdown-container" *ngIf="!(newsStories && newsStories.data.length < 1 && searchQuery && searchQuery.length > 0)">
+    <label id="pagesize-dropdown-text" for="pageSize">Page Size:</label>
+    <select id="pagesize-dropdown" name="pageSize" [(ngModel)]="pageSize" (change)="page = 0; getLatestNews();">
+        <option [value]="10" [selected]="pageSize === 10">10</option>
+        <option [value]="20" [selected]="pageSize === 20">20</option>
+        <option [value]="50" [selected]="pageSize === 50">50</option>
+        <option [value]="100" [selected]="pageSize === 100">100</option>
+        <option [value]="-1" [selected]="pageSize === -1">All</option>
+    </select>
+</div>
+</div>
+
+<ng-container *ngIf="newsStories?.data !== null && newsStories.data.length >  0">
+    <h2 *ngIf="loading" id="loading-text">
+        Loading ...
+    </h2>
+    <div *ngIf="!loading">
+        <div class="story-container" *ngFor="let newsStory of newsStories.data">
+            <h2 class="story-title">
+                {{newsStory.title}}
+            </h2>
+            <p class="story-author">
+                Author: {{newsStory.author}}
+            </p>
+            <a *ngIf="newsStory.url" class="story-link" href="{{newsStory.url}}" target="_blank">Read More...</a>
+        </div>
+    </div>
+</ng-container>
+
+<h2 *ngIf="newsStories && newsStories.data.length < 1 && searchQuery && searchQuery.length > 0" id="no-results-text">
+    No Results Found
+</h2>

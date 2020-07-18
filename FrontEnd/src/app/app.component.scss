@@ -1,0 +1,22 @@
+#topbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 40px;
+    background-color: #bff1c1;
+    border-bottom: 2px solid #c2ce9f;
+}
+
+#topbar-text {
+    font-family: arial;
+    font-weight: 200;
+    margin-left: 10px;
+    font-size: 15px;
+    margin-top: 12px;
+}
+
+#space {
+    height: 40px;
+    width: 100%;
+}

@@ -1,0 +1,17 @@
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\RestApiUnitTests.deps.json
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\RestApiUnitTests.runtimeconfig.json
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\RestApiUnitTests.runtimeconfig.dev.json
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\RestApiUnitTests.dll
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\RestApi.dll
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\RestApi.pdb
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\obj\Debug\netcoreapp2.1\RestApiUnitTests.csprojAssemblyReference.cache
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\obj\Debug\netcoreapp2.1\RestApiUnitTests.csproj.CoreCompileInputs.cache
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\obj\Debug\netcoreapp2.1\RestApiUnitTests.AssemblyInfoInputs.cache
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\obj\Debug\netcoreapp2.1\RestApiUnitTests.AssemblyInfo.cs
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\obj\Debug\netcoreapp2.1\RestApiUnitTests.csproj.CopyComplete
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\bin\Debug\netcoreapp2.1\RestApiUnitTests.pdb
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\obj\Debug\netcoreapp2.1\RestApiUnitTests.dll
+C:\Users\Cristian\Desktop\ForNexTech\RestApi\RestApiUnitTests\obj\Debug\netcoreapp2.1\RestApiUnitTests.pdb
