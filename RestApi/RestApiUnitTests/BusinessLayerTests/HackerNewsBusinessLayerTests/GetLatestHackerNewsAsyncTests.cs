@@ -24,7 +24,7 @@ namespace RestApiUnitTests.BusinessLayerTests.HackerNewsBusinessLayerTests
             _hackerNewsRepository = new Mock<IHackerNewsRepository>(MockBehavior.Strict);
             SetupMockRepository(new List<int>() { _hackerNewsItem.Id }, _hackerNewsItem);
 
-            _page = 1;
+            _page = 0;
             _pageSize = 10;
             _titleSearchQuery = null;
 
@@ -70,14 +70,14 @@ namespace RestApiUnitTests.BusinessLayerTests.HackerNewsBusinessLayerTests
         }
 
         [Fact]
-        public async Task GetLatestHackerNewsAsync_NegativePage_ReturnsAllData()
+        public async Task GetLatestHackerNewsAsync_NegativePage_ReturnsNoData()
         {
             _page = -1;
             var result = await CallMethod();
 
             Assert.Equal(1, result.ResultCount);
             Assert.Equal(1, result.TotalPages);
-            Assert.Single(result.HackerNewsItems);
+            Assert.Empty(result.HackerNewsItems);
         }
 
         [Fact]
@@ -89,6 +89,29 @@ namespace RestApiUnitTests.BusinessLayerTests.HackerNewsBusinessLayerTests
             Assert.Equal(1, result.ResultCount);
             Assert.Equal(1, result.TotalPages);
             Assert.Empty(result.HackerNewsItems);
+        }
+
+        [Fact]
+        public async Task GetLatestHackerNewsAsync_GetLastPage_ReturnsCorrectAmountOfData()
+        {
+            var result = await CallMethod();
+
+            Assert.Equal(1, result.ResultCount);
+            Assert.Equal(1, result.TotalPages);
+            Assert.Single(result.HackerNewsItems);
+        }
+
+        [Fact]
+        public async Task GetLatestHackerNewsAsync_GetsAPageWithinBoundaries_ReturnsCorrectAmountOfData()
+        {
+            _pageSize = 1;
+            _page = 1;
+            SetupMockRepository(new List<int>() { _hackerNewsItem.Id, _hackerNewsItem.Id, _hackerNewsItem.Id }, _hackerNewsItem);
+            var result = await CallMethod();
+
+            Assert.Equal(3, result.ResultCount);
+            Assert.Equal(3, result.TotalPages);
+            Assert.Single(result.HackerNewsItems);
         }
 
         [Fact]
@@ -114,7 +137,7 @@ namespace RestApiUnitTests.BusinessLayerTests.HackerNewsBusinessLayerTests
             // we have to set the id here to something different because if not when running these tests one after another
             // the GetHackerNewsItemAsync function won't be called because of the caching
             _hackerNewsItem.Id = 6000000;
-            SetupMockRepository(new List<int>() { _hackerNewsItem.Id }, (HackerNewsItem)null);
+            SetupMockRepository(new List<int>() { _hackerNewsItem.Id }, null);
 
             var result = await CallMethod();
 

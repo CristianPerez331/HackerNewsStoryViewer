@@ -1,9 +1,12 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { HackerNewsStoriesComponent } from './hacker-news-stories.component';
 import { ApiService } from '../services/api.service';
 import { of } from 'rxjs';
 import { NewsStoryData } from '../models/news-story-data.model';
+import { By, BrowserModule } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 describe('HackerNewsStoriesComponent', () => {
   let component: HackerNewsStoriesComponent;
@@ -12,6 +15,7 @@ describe('HackerNewsStoriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule, BrowserModule ],
       declarations: [ HackerNewsStoriesComponent ],
       providers: [
         { provide: ApiService, useValue: mockApiService }
@@ -22,14 +26,12 @@ describe('HackerNewsStoriesComponent', () => {
     mockApiService.getLatestNews.and.returnValue(
       of({"totalResultCount":1,"totalPages":1,"data":[{"id":1,"author":"Cristian","title":"This is the title text","url":"https://url.url/url","timePublished":1595042599.0}],"hasError":false})
     );
-  }));
-
-  beforeEach(() => {
+    
     fixture = TestBed.createComponent(HackerNewsStoriesComponent);
     component = fixture.componentInstance;
-  });
+  }));
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
   
@@ -95,31 +97,126 @@ describe('HackerNewsStoriesComponent', () => {
   }));
 
   /* DOM tests */
-  /*it('', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    searchQuery
-    expect(compiled.querySelector('#topbar-text')).toBeNull();
-  });*/
-  
   it('should update search query when search field is changed ', fakeAsync(() => {
+    component.searchQuery = "test";
     fixture.detectChanges();
-    const element = fixture.nativeElement.querySelector('#search-field').nativeElement;
-    element.focus();
-    element.value = 'test';
-    element.dispatchEvent(new Event('input'));
     tick();
-    fixture.detectChanges();
-    expect(component.searchQuery).toEqual("test");
+    let searchField: DebugElement = fixture.debugElement.query(By.css("#search-field"));
+    expect(searchField.nativeElement.value).toEqual("test");
   }));
 
-  it('should update pageSize when the dropdown is changed', () => {
-    component.searchQuery = "-1";
+  it('should update dropdown when pageSize is changed', fakeAsync(() => {
+    component.pageSize = -1;
     fixture.detectChanges();
-    const element = fixture.nativeElement.querySelector('#pagesize-dropdown');
-    element.value = 'test';
-    element.dispatchEvent(new Event('input'));
+    tick();
+    let dropdown: DebugElement = fixture.debugElement.query(By.css("#pagesize-dropdown"));
+    expect(dropdown.nativeElement.value).toEqual("-1");
+  }));
+
+  it('should set current page as selected', fakeAsync(() => {
     fixture.detectChanges();
-    expect(component.searchQuery).toEqual("test");
-  });
+    tick();
+    let pageButtonSelected: DebugElement = fixture.debugElement.query(By.css(".pagebutton-selected"));
+    expect(pageButtonSelected.nativeElement.innerText).toEqual((component.page+1).toString());
+  }));
+  
+  it('should update pageSize and set page to 0 when dropdown is changed ', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    let dropdown: DebugElement = fixture.debugElement.query(By.css("#pagesize-dropdown"));
+    dropdown.nativeElement.value = -1;
+    dropdown.nativeElement.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    expect(component.pageSize.toString()).toEqual("-1");
+    expect(component.page).toEqual(0);
+  }));
+
+  it('should display correct story data', fakeAsync(() => {
+    component.pageSize = -1;
+    fixture.detectChanges();
+    tick();
+    let storyContainers: Array<DebugElement> = fixture.debugElement.queryAll(By.css(".story-container"));
+    let title: DebugElement = storyContainers[0].query(By.css(".story-title"));
+    let author: DebugElement = storyContainers[0].query(By.css(".story-author"));
+    let link: DebugElement = storyContainers[0].query(By.css(".story-link"));
+    expect(storyContainers.length).toEqual(1);
+    expect(title.nativeElement.innerText).toEqual(component.newsStories.data[0].title);
+    expect(author.nativeElement.innerText).toEqual(`Author: ${component.newsStories.data[0].author}`);
+    expect(link.nativeElement.href).toEqual(component.newsStories.data[0].url);
+  }));
+
+  it('should not display url when it doesnt exist in the data', fakeAsync(() => {
+    component.pageSize = -1;
+    fixture.detectChanges();
+    mockApiService.getLatestNews.and.returnValue(
+      of({"totalResultCount":1,"totalPages":1,"data":[{"id":1,"author":"Cristian","title":"This is the title text","timePublished":1595042599.0}],"hasError":false})
+    );
+    component.getLatestNews();
+    fixture.detectChanges();
+    tick();
+    let storyContainers: Array<DebugElement> = fixture.debugElement.queryAll(By.css(".story-container"));
+    let link: DebugElement = storyContainers[0].query(By.css(".story-link"));
+    expect(storyContainers.length).toEqual(1);
+    expect(link).toBeNull();
+  }));
+
+  it('should not display story data when loading', fakeAsync(() => {
+    // Note: we need an extra detect changes here because the initial one will run the onInit 
+    // which will set loading to false, so we have to set it back
+    fixture.detectChanges();
+    component.loading = true;
+    fixture.detectChanges();
+    tick();
+    let storyContainers: Array<DebugElement> = fixture.debugElement.queryAll(By.css(".story-container"));
+    expect(storyContainers.length).toEqual(0);
+  }));
+
+  it('should display loading text when loading', fakeAsync(() => {
+    // Note: we need an extra detect changes here because the initial one will run the onInit 
+    // which will set loading to false, so we have to set it back
+    fixture.detectChanges();
+    component.loading = true;
+    fixture.detectChanges();
+    tick();
+    let loadingText: DebugElement = fixture.debugElement.query(By.css("#loading-text"));
+    expect(loadingText).not.toBeNull();
+  }));
+
+  it('should not display loading text when not loading', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    let loadingText: DebugElement = fixture.debugElement.query(By.css("#loading-text"));
+    expect(loadingText).toBeNull();
+  }));
+
+  it('should display nothing found text when nothing was found', fakeAsync(() => {
+    // Note: we need an extra detect changes here because the initial one will run the onInit 
+    // which will reset the newsStories
+    fixture.detectChanges();
+    component.newsStories.data = [];
+    component.searchQuery = "test";
+    fixture.detectChanges();
+    tick();
+    let loadingText: DebugElement = fixture.debugElement.query(By.css("#no-results-text"));
+    expect(loadingText).not.toBeNull();
+  }));
+
+  it('should not display pageSize dropdown when nothing was found', fakeAsync(() => {
+    // Note: we need an extra detect changes here because the initial one will run the onInit 
+    // which will reset the newsStories
+    fixture.detectChanges();
+    component.newsStories.data = [];
+    component.searchQuery = "test";
+    fixture.detectChanges();
+    tick();
+    let loadingText: DebugElement = fixture.debugElement.query(By.css("#pagesize-dropdown-container"));
+    expect(loadingText).toBeNull();
+  }));
+
+  it('should not display nothing found text when something was found', fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+    let loadingText: DebugElement = fixture.debugElement.query(By.css("#no-results-text"));
+    expect(loadingText).toBeNull();
+  }));
 });
