@@ -15,11 +15,13 @@
     width: 33px;
     height: 30px;
     margin: 2px;
+    border-radius: 3px;
 }
 
 .pagebutton:hover {
     cursor: pointer;
     border: 1px solid #616161;
+    border-radius: 3px;
 }
 
 .pagebutton-selected {

@@ -39,6 +39,6 @@
     </div>
 </ng-container>
 
-<h2 *ngIf="newsStories && newsStories.data.length < 1 && searchQuery && searchQuery.length > 0" id="no-results-text">
+<h2 *ngIf="!loading && newsStories && newsStories.data.length < 1 && searchQuery && searchQuery.length > 0" id="no-results-text">
     No Results Found
 </h2>

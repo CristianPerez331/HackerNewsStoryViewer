@@ -33,6 +33,7 @@ export class HackerNewsStoriesComponent implements OnInit {
 
   searchLatestNews(): void {
     this.loading = true;
+    this.page = 0;
     clearTimeout(this.typingTimeout);
     this.typingTimeout = setTimeout(() => {
       this.getLatestNews();
